@@ -1,0 +1,503 @@
+use Library_DB
+switched to db Library_DB
+db.createCollection("books")
+{ ok: 1 }
+db.books.insertMany([{title:"the fly",author:"apj",genre:2,price:200},{title:"the book",author:"xyz",genre:5,price:500},
+{title:"jungle book",author:"pqr",genre:7,price:800},{title:"moana",author:"abc",genre:10,price:800},{title:"python",author:"hng",genre:8,price:900}])
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': ObjectId('6a166e64469809d9a69bc900'),
+    '1': ObjectId('6a166e64469809d9a69bc901'),
+    '2': ObjectId('6a166e64469809d9a69bc902'),
+    '3': ObjectId('6a166e64469809d9a69bc903'),
+    '4': ObjectId('6a166e64469809d9a69bc904')
+  }
+}
+db.books.find()
+{
+  _id: ObjectId('6a166e64469809d9a69bc900'),
+  title: 'the fly',
+  author: 'apj',
+  genre: 2,
+  price: 200
+}
+{
+  _id: ObjectId('6a166e64469809d9a69bc901'),
+  title: 'the book',
+  author: 'xyz',
+  genre: 5,
+  price: 500
+}
+{
+  _id: ObjectId('6a166e64469809d9a69bc902'),
+  title: 'jungle book',
+  author: 'pqr',
+  genre: 7,
+  price: 800
+}
+{
+  _id: ObjectId('6a166e64469809d9a69bc903'),
+  title: 'moana',
+  author: 'abc',
+  genre: 10,
+  price: 800
+}
+{
+  _id: ObjectId('6a166e64469809d9a69bc904'),
+  title: 'python',
+  author: 'hng',
+  genre: 8,
+  price: 900
+}
+db.books.find({price:{$gt:300,$lt:800}})
+{
+  _id: ObjectId('6a166e64469809d9a69bc901'),
+  title: 'the book',
+  author: 'xyz',
+  genre: 5,
+  price: 500
+}
+db.books.find({genre:2})
+{
+  _id: ObjectId('6a166e64469809d9a69bc900'),
+  title: 'the fly',
+  author: 'apj',
+  genre: 2,
+  price: 200
+}
+db.books.updateOne({title:"the fly",{$set:{price:300}})
+SyntaxError: Unexpected token (1:36)
+
+> 1 | db.books.updateOne({title:"the fly",{$set:{price:300}})
+    |                                     ^
+db.books.updateOne({title:"the fly"},{$set:{price:300}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+db.books.find()
+{
+  _id: ObjectId('6a166e64469809d9a69bc900'),
+  title: 'the fly',
+  author: 'apj',
+  genre: 2,
+  price: 300
+}
+{
+  _id: ObjectId('6a166e64469809d9a69bc901'),
+  title: 'the book',
+  author: 'xyz',
+  genre: 5,
+  price: 500
+}
+{
+  _id: ObjectId('6a166e64469809d9a69bc902'),
+  title: 'jungle book',
+  author: 'pqr',
+  genre: 7,
+  price: 800
+}
+{
+  _id: ObjectId('6a166e64469809d9a69bc903'),
+  title: 'moana',
+  author: 'abc',
+  genre: 10,
+  price: 800
+}
+{
+  _id: ObjectId('6a166e64469809d9a69bc904'),
+  title: 'python',
+  author: 'hng',
+  genre: 8,
+  price: 900
+}
+db.books.deleteOne({title:"the fly"})
+{
+  acknowledged: true,
+  deletedCount: 1
+}
+db.books.find()
+{
+  _id: ObjectId('6a166e64469809d9a69bc901'),
+  title: 'the book',
+  author: 'xyz',
+  genre: 5,
+  price: 500
+}
+{
+  _id: ObjectId('6a166e64469809d9a69bc902'),
+  title: 'jungle book',
+  author: 'pqr',
+  genre: 7,
+  price: 800
+}
+{
+  _id: ObjectId('6a166e64469809d9a69bc903'),
+  title: 'moana',
+  author: 'abc',
+  genre: 10,
+  price: 800
+}
+{
+  _id: ObjectId('6a166e64469809d9a69bc904'),
+  title: 'python',
+  author: 'hng',
+  genre: 8,
+  price: 900
+}
+db.books.updateMany({price:{$gt:300}},{$inc:{price:500}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 4,
+  modifiedCount: 4,
+  upsertedCount: 0
+}
+db.books.find()
+{
+  _id: ObjectId('6a166e64469809d9a69bc901'),
+  title: 'the book',
+  author: 'xyz',
+  genre: 5,
+  price: 1000
+}
+{
+  _id: ObjectId('6a166e64469809d9a69bc902'),
+  title: 'jungle book',
+  author: 'pqr',
+  genre: 7,
+  price: 1300
+}
+{
+  _id: ObjectId('6a166e64469809d9a69bc903'),
+  title: 'moana',
+  author: 'abc',
+  genre: 10,
+  price: 1300
+}
+{
+  _id: ObjectId('6a166e64469809d9a69bc904'),
+  title: 'python',
+  author: 'hng',
+  genre: 8,
+  price: 1400
+}
+use Hospital_DB
+switched to db Hospital_DB
+db.createCollection("patients")
+{ ok: 1 }
+db.books.insertMany([{name:"tom",age:34,disease:"apendix",doctorAssigned:"Dr Varsha",city:"Mumbai"},{name:"Jerry",age:17,disease:"Maleria",doctorAssigned:"Dr.Priti",city:"hydrabaad"},
+{name:"john",age:27,disease:"Fever",doctorAssigned:"Dr Shweta",city:"Delhi"},{name:"moana",age:67,disease:"TB",doctorAssigned:"Dr Neha",city:"Goa"},{name:"priya",age:36,disease:"LooseMotion	",doctorAssigned:"Dr Sajid",city:"Bihar"}])
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': ObjectId('6a16716f469809d9a69bc905'),
+    '1': ObjectId('6a16716f469809d9a69bc906'),
+    '2': ObjectId('6a16716f469809d9a69bc907'),
+    '3': ObjectId('6a16716f469809d9a69bc908'),
+    '4': ObjectId('6a16716f469809d9a69bc909')
+  }
+}
+db.books.find()
+{
+  _id: ObjectId('6a16716f469809d9a69bc905'),
+  name: 'tom',
+  age: 34,
+  disease: 'apendix',
+  doctorAssigned: 'Dr Varsha',
+  city: 'Mumbai'
+}
+{
+  _id: ObjectId('6a16716f469809d9a69bc906'),
+  name: 'Jerry',
+  age: 17,
+  disease: 'Maleria',
+  doctorAssigned: 'Dr.Priti',
+  city: 'hydrabaad'
+}
+{
+  _id: ObjectId('6a16716f469809d9a69bc907'),
+  name: 'john',
+  age: 27,
+  disease: 'Fever',
+  doctorAssigned: 'Dr Shweta',
+  city: 'Delhi'
+}
+{
+  _id: ObjectId('6a16716f469809d9a69bc908'),
+  name: 'moana',
+  age: 67,
+  disease: 'TB',
+  doctorAssigned: 'Dr Neha',
+  city: 'Goa'
+}
+{
+  _id: ObjectId('6a16716f469809d9a69bc909'),
+  name: 'priya',
+  age: 36,
+  disease: 'LooseMotion\t',
+  doctorAssigned: 'Dr Sajid',
+  city: 'Bihar'
+}
+db.patients.find({age:{$gt:20,$lt:50}})
+db.patients.find({age:{$gt:20,$lt:50}})
+db.patients.find({age:{$gt:20,$ls:50}})
+MongoServerError[BadValue]: unknown operator: $ls
+db.patients.find({age:{$gt:20,$lt:50}})
+db.books.find()
+{
+  _id: ObjectId('6a16716f469809d9a69bc905'),
+  name: 'tom',
+  age: 34,
+  disease: 'apendix',
+  doctorAssigned: 'Dr Varsha',
+  city: 'Mumbai'
+}
+{
+  _id: ObjectId('6a16716f469809d9a69bc906'),
+  name: 'Jerry',
+  age: 17,
+  disease: 'Maleria',
+  doctorAssigned: 'Dr.Priti',
+  city: 'hydrabaad'
+}
+{
+  _id: ObjectId('6a16716f469809d9a69bc907'),
+  name: 'john',
+  age: 27,
+  disease: 'Fever',
+  doctorAssigned: 'Dr Shweta',
+  city: 'Delhi'
+}
+{
+  _id: ObjectId('6a16716f469809d9a69bc908'),
+  name: 'moana',
+  age: 67,
+  disease: 'TB',
+  doctorAssigned: 'Dr Neha',
+  city: 'Goa'
+}
+{
+  _id: ObjectId('6a16716f469809d9a69bc909'),
+  name: 'priya',
+  age: 36,
+  disease: 'LooseMotion\t',
+  doctorAssigned: 'Dr Sajid',
+  city: 'Bihar'
+}
+db.patients.insertMany([{name:"tom",age:34,disease:"apendix",doctorAssigned:"Dr Varsha",city:"Mumbai"},{name:"Jerry",age:17,disease:"Maleria",doctorAssigned:"Dr.Priti",city:"hydrabaad"},
+{name:"john",age:27,disease:"Fever",doctorAssigned:"Dr Shweta",city:"Delhi"},{name:"moana",age:67,disease:"TB",doctorAssigned:"Dr Neha",city:"Goa"},{name:"priya",age:36,disease:"LooseMotion	",doctorAssigned:"Dr Sajid",city:"Bihar"}])
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': ObjectId('6a167291469809d9a69bc90a'),
+    '1': ObjectId('6a167291469809d9a69bc90b'),
+    '2': ObjectId('6a167291469809d9a69bc90c'),
+    '3': ObjectId('6a167291469809d9a69bc90d'),
+    '4': ObjectId('6a167291469809d9a69bc90e')
+  }
+}
+db.patients.find()
+{
+  _id: ObjectId('6a167291469809d9a69bc90a'),
+  name: 'tom',
+  age: 34,
+  disease: 'apendix',
+  doctorAssigned: 'Dr Varsha',
+  city: 'Mumbai'
+}
+{
+  _id: ObjectId('6a167291469809d9a69bc90b'),
+  name: 'Jerry',
+  age: 17,
+  disease: 'Maleria',
+  doctorAssigned: 'Dr.Priti',
+  city: 'hydrabaad'
+}
+{
+  _id: ObjectId('6a167291469809d9a69bc90c'),
+  name: 'john',
+  age: 27,
+  disease: 'Fever',
+  doctorAssigned: 'Dr Shweta',
+  city: 'Delhi'
+}
+{
+  _id: ObjectId('6a167291469809d9a69bc90d'),
+  name: 'moana',
+  age: 67,
+  disease: 'TB',
+  doctorAssigned: 'Dr Neha',
+  city: 'Goa'
+}
+{
+  _id: ObjectId('6a167291469809d9a69bc90e'),
+  name: 'priya',
+  age: 36,
+  disease: 'LooseMotion\t',
+  doctorAssigned: 'Dr Sajid',
+  city: 'Bihar'
+}
+db.patients.find({age:{$gt:20,$lt:50}})
+{
+  _id: ObjectId('6a167291469809d9a69bc90a'),
+  name: 'tom',
+  age: 34,
+  disease: 'apendix',
+  doctorAssigned: 'Dr Varsha',
+  city: 'Mumbai'
+}
+{
+  _id: ObjectId('6a167291469809d9a69bc90c'),
+  name: 'john',
+  age: 27,
+  disease: 'Fever',
+  doctorAssigned: 'Dr Shweta',
+  city: 'Delhi'
+}
+{
+  _id: ObjectId('6a167291469809d9a69bc90e'),
+  name: 'priya',
+  age: 36,
+  disease: 'LooseMotion\t',
+  doctorAssigned: 'Dr Sajid',
+  city: 'Bihar'
+}
+db.patients.find({disease:"Fever"})
+{
+  _id: ObjectId('6a167291469809d9a69bc90c'),
+  name: 'john',
+  age: 27,
+  disease: 'Fever',
+  doctorAssigned: 'Dr Shweta',
+  city: 'Delhi'
+}
+db.patients.updateOne({name:"priya"},{$set:{doctorAssigned:"Dr Anup"}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+db.patients.find()
+{
+  _id: ObjectId('6a167291469809d9a69bc90a'),
+  name: 'tom',
+  age: 34,
+  disease: 'apendix',
+  doctorAssigned: 'Dr Varsha',
+  city: 'Mumbai'
+}
+{
+  _id: ObjectId('6a167291469809d9a69bc90b'),
+  name: 'Jerry',
+  age: 17,
+  disease: 'Maleria',
+  doctorAssigned: 'Dr.Priti',
+  city: 'hydrabaad'
+}
+{
+  _id: ObjectId('6a167291469809d9a69bc90c'),
+  name: 'john',
+  age: 27,
+  disease: 'Fever',
+  doctorAssigned: 'Dr Shweta',
+  city: 'Delhi'
+}
+{
+  _id: ObjectId('6a167291469809d9a69bc90d'),
+  name: 'moana',
+  age: 67,
+  disease: 'TB',
+  doctorAssigned: 'Dr Neha',
+  city: 'Goa'
+}
+{
+  _id: ObjectId('6a167291469809d9a69bc90e'),
+  name: 'priya',
+  age: 36,
+  disease: 'LooseMotion\t',
+  doctorAssigned: 'Dr Anup',
+  city: 'Bihar'
+}
+db.patients.updateMany({age:{$gt:60}},{$inc:{age:1}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+db.patients.find()
+{
+  _id: ObjectId('6a167291469809d9a69bc90a'),
+  name: 'tom',
+  age: 34,
+  disease: 'apendix',
+  doctorAssigned: 'Dr Varsha',
+  city: 'Mumbai'
+}
+{
+  _id: ObjectId('6a167291469809d9a69bc90b'),
+  name: 'Jerry',
+  age: 17,
+  disease: 'Maleria',
+  doctorAssigned: 'Dr.Priti',
+  city: 'hydrabaad'
+}
+{
+  _id: ObjectId('6a167291469809d9a69bc90c'),
+  name: 'john',
+  age: 27,
+  disease: 'Fever',
+  doctorAssigned: 'Dr Shweta',
+  city: 'Delhi'
+}
+{
+  _id: ObjectId('6a167291469809d9a69bc90d'),
+  name: 'moana',
+  age: 68,
+  disease: 'TB',
+  doctorAssigned: 'Dr Neha',
+  city: 'Goa'
+}
+{
+  _id: ObjectId('6a167291469809d9a69bc90e'),
+  name: 'priya',
+  age: 36,
+  disease: 'LooseMotion\t',
+  doctorAssigned: 'Dr Anup',
+  city: 'Bihar'
+}
+db.patients.deleteOne({name:"priya"})
+{
+  acknowledged: true,
+  deletedCount: 1
+}
+db.patients.deleteOne({city:"Goa"})
+{
+  acknowledged: true,
+  deletedCount: 1
+}
+db.patients.findOne({name:"priya"})
+null
+db.patients.findOne({name:"moana"})
+null
+db.patients.findOne({name:"tom"})
+{
+  _id: ObjectId('6a167291469809d9a69bc90a'),
+  name: 'tom',
+  age: 34,
+  disease: 'apendix',
+  doctorAssigned: 'Dr Varsha',
+  city: 'Mumbai'
+}
+Hospital_DB
+Selection deleted
+
+
